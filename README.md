@@ -38,7 +38,7 @@ different sub-commands: **aln/samse/sampe** for BWA-backtrack,
 
 ## Availability
 
-BWA is released under [GPLv3][1]. The latest source code is [freely
+BWA is released under [Apache 2.0][1]. The latest source code is [freely
 available at github][2]. Released packages can [be downloaded][3] at
 SourceForge. After you acquire the source code, simply use `make` to compile
 and copy the single executable `bwa` to the destination you want. The only
@@ -166,7 +166,7 @@ run the post-processing script.
 
 
 
-[1]: http://en.wikipedia.org/wiki/GNU_General_Public_License
+[1]: https://en.wikipedia.org/wiki/Apache_License 
 [2]: https://github.com/lh3/bwa
 [3]: http://sourceforge.net/projects/bio-bwa/files/
 [4]: http://bio-bwa.sourceforge.net/bwa.shtml
