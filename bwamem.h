@@ -159,6 +159,28 @@ extern "C" {
 	 *               corresponding to each FF, FR, RF and RR orientation. See mem_pestat() for more info.
 	 */
 	void mem_process_seqs(const mem_opt_t *opt, const bwt_t *bwt, const bntseq_t *bns, const uint8_t *pac, int64_t n_processed, int n, bseq1_t *seqs, const mem_pestat_t *pes0);
+    
+
+	/**
+	 * Align a single paired-end sequences and generate the alignments in the SAM format
+	 *
+	 * This routine requires $seqs[i].{l_seq,seq,name} and write $seqs[i].sam.
+	 * Note that $seqs[i].sam may consist of several SAM lines if the
+	 * corresponding sequence has multiple primary hits.
+	 *
+	 * This assumes that MEM_F_PE is set in $opt->flag. seq[0] is read 1 and
+	 * seqs[1] is read 2.
+	 *
+	 * @param opt    alignment parameters
+	 * @param bwt    FM-index of the reference sequence
+	 * @param bns    Information of the reference
+	 * @param pac    2-bit encoded reference
+	 * @param seqs   query sequences; $seqs[i].seq/sam to be modified after the call
+	 * @param pes0   insert-size info; Must be an array with 4 elements,
+	 *               corresponding to each FF, FR, RF and RR orientation. See mem_pestat() for more info.
+	 */
+	void mem_process_seq_pe(const mem_opt_t *opt, const bwt_t *bwt, const bntseq_t *bns, const uint8_t *pac, bseq1_t seqs[2], const mem_pestat_t *pes);
+
 
 	/**
 	 * Find the aligned regions for one query sequence

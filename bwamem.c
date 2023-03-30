@@ -1262,3 +1262,22 @@ void mem_process_seqs(const mem_opt_t *opt, const bwt_t *bwt, const bntseq_t *bn
 	if (bwa_verbose >= 3)
 		fprintf(stderr, "[M::%s] Processed %d reads in %.3f CPU sec, %.3f real sec\n", __func__, n, cputime() - ctime, realtime() - rtime);
 }
+
+void mem_process_seq_pe(const mem_opt_t *opt, const bwt_t *bwt, const bntseq_t *bns, const uint8_t *pac, bseq1_t seqs[2], const mem_pestat_t *pes)
+{
+	extern int mem_sam_pe(const mem_opt_t *opt, const bntseq_t *bns, const uint8_t *pac, const mem_pestat_t pes[4], uint64_t id, bseq1_t s[2], mem_alnreg_v a[2]);
+
+	mem_alnreg_v regs[2];
+
+	// allocate a shared aux
+	smem_aux_t* aux = smem_aux_init();
+
+	regs[0] = mem_align1_core(opt, bwt, bns, pac, seqs[0].l_seq, seqs[0].seq, aux);
+	regs[1] = mem_align1_core(opt, bwt, bns, pac, seqs[1].l_seq, seqs[1].seq, aux);
+
+	mem_sam_pe(opt, bns, pac, pes, 0, seqs, regs);
+
+	smem_aux_destroy(aux);
+	free(regs[0].a);
+	free(regs[1].a);
+}

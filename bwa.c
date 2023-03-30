@@ -41,7 +41,7 @@
 
 int bwa_verbose = 3;
 int bwa_dbg = 0;
-char bwa_rg_id[256];
+char bwa_rg_id[256] = "";
 char *bwa_pg;
 
 /************************
